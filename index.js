@@ -1,23 +1,20 @@
-const express = require('express')
-const path = require('path')
-var request = require('request')
+const express = require('express');
+const path = require('path');
+var request = require('request');
 const http = require('https');
 const fs = require('fs');
 const PORT = process.env.PORT || 5000
 
-const app = express()
+const app = express();
 
 
 const tUpload = function(msg){
-
     console.log("CB WAS CALLED");
     if(msg!=undefined){
-    
     console.error(msg);
     }
 }
-const downloadFile = function(url,dest,cb)
-{
+const downloadFile = function(url,dest,cb){
     console.log("starting download to "+dest+"\n \n URL:"+url);
     var file = fs.createWriteStream(dest);
   var requ = http.get(url, function(response) {
