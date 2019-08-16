@@ -63,7 +63,7 @@ app
             var fileName = jsonRes.info.title;
             fileName = fileName.replace(/ /g,"_");
             fileName = fileName+"."+jsonRes.info.ext;
-            fileName = "audio/"+fileName;
+            fileName = __dirname+"/"+fileName;
             console.log("full file name:"+fileName);
             downloadFile(jsonRes.info.url,fileName,tUpload);
         }
