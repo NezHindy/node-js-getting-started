@@ -67,7 +67,7 @@ app
            // console.log("PARSED URL:"+jsonRes.info.url);
             var fileName = jsonRes.info.title;
             //fileName = fileName.replace(/ /g,"_");
-            fileName = params.vidId+"."+jsonRes.info.ext;
+            fileName = req.params.vidId+"."+jsonRes.info.ext;
             nameOfFile = fileName;
             fileName = __dirname+"/"+fileName;
             console.log("full file name:"+fileName);
