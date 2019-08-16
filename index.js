@@ -51,6 +51,13 @@ const downloadFile = function(url,dest,cb){
 
 }*/
 
+
+app
+.get('/:fileName',function(req,res){
+    //send the file to download
+    res.sendFile(__dirname+"/"+req.params.fileName);
+});
+
 app
     .get('/youtube/:vidId',
          function(req,res){
@@ -70,6 +77,7 @@ app
     })
     res.end();
 });
+
     
 
 /*app
