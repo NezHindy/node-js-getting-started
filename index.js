@@ -13,6 +13,30 @@ var FAWZAN_CHATID='@shalfawzan';
 var ADMIN_CHATID='@NezamUddin';
 
 
+const fetchLink(req,res,mode)
+{
+        var link = "https://salafi.herokuapp.com/api/info?url=https://www.youtube.com/watch?v=" + req.params.vidId + "&format=";
+        if(mode=="video")
+            link+="";
+        else
+            link+="bestaudio[ext=webm]";
+        
+        request.get(link,function(error,response,body){
+        if(!error && response.statusCode==200){
+            //console.log(body);
+            var jsonRes = JSON.parse(body);
+           // console.log("PARSED URL:"+jsonRes.info.url);
+            var fileName = jsonRes.info.title;
+            //fileName = fileName.replace(/ /g,"_");
+            fileName = req.params.vidId+"."+jsonRes.info.ext;
+            nameOfFile = fileName;
+            fileName = __dirname+"/"+fileName;
+            console.log("full file name:"+fileName);
+            downloadFile(jsonRes.info.url,fileName,jsonRes);
+        }
+    })
+}
+
 const botWork = function(dest,jsonResponse){
 const bot = new Telegraf(BOT_TOKEN)
 bot.launch();
@@ -21,7 +45,7 @@ bot.launch();
           
               ...jsonResponse.info.duration && { duration: jsonResponse.info.duration },
               ...jsonResponse.info.creator && { performer: jsonResponse.info.creator },
-              ...jsonResponse.info.description && { caption: '@shalfawzan' },
+              { caption: '@shalfawzan' },
 };
     bot.telegram.sendAudio(FAWZAN_CHATID,{ source: dest },extra);
     if(jsonResponse.info.description!=null && jsonResponse.info.description!=undefined)
@@ -45,6 +69,7 @@ const downloadFile = function(url,dest,jsonResponse){
   .pipe(fs.createWriteStream(dest))
    .on('finish',function(args){
        console.log('enterred on finish');
+       //check size of the written file
       botWork(dest,jsonResponse);
    });
 }
@@ -60,20 +85,7 @@ app
     .get('/youtube/:vidId',
          function(req,res){
     console.log("SUCCESS. Video:"+req.params.vidId);
-    request.get("https://salafi.herokuapp.com/api/info?url=https://www.youtube.com/watch?v=" + req.params.vidId + "&format=bestaudio",function(error,response,body){
-        if(!error && response.statusCode==200){
-            //console.log(body);
-            var jsonRes = JSON.parse(body);
-           // console.log("PARSED URL:"+jsonRes.info.url);
-            var fileName = jsonRes.info.title;
-            //fileName = fileName.replace(/ /g,"_");
-            fileName = req.params.vidId+"."+jsonRes.info.ext;
-            nameOfFile = fileName;
-            fileName = __dirname+"/"+fileName;
-            console.log("full file name:"+fileName);
-            downloadFile(jsonRes.info.url,fileName,jsonRes);
-        }
-    })
+    fetchLink(req,res,'audio');
     res.end();
 });
 
