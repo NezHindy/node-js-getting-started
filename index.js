@@ -45,7 +45,7 @@ bot.launch();
           
               ...jsonResponse.info.duration && { duration: jsonResponse.info.duration },
               ...jsonResponse.info.creator && { performer: jsonResponse.info.creator },
-              { caption: '@shalfawzan' },
+              ..."" && { caption: '@shalfawzan' },
 };
     bot.telegram.sendAudio(FAWZAN_CHATID,{ source: dest },extra);
     if(jsonResponse.info.description!=null && jsonResponse.info.description!=undefined)
