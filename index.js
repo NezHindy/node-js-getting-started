@@ -13,7 +13,7 @@ var FAWZAN_CHATID='@shalfawzan';
 var ADMIN_CHATID='@NezamUddin';
 
 
-const fetchLink(req,res,mode)
+const fetchLink = function(req,res,mode)
 {
         var link = "https://salafi.herokuapp.com/api/info?url=https://www.youtube.com/watch?v=" + req.params.vidId + "&format=";
         if(mode=="video")
