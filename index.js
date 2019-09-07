@@ -19,7 +19,7 @@ const fetchLink = function(req,res,mode)
         if(mode=="video")
             link+="";
         else
-            link+="bestaudio[ext=webm]";
+            link+="bestaudio[ext=m4a]";
         
         request.get(link,function(error,response,body){
         if(!error && response.statusCode==200){
