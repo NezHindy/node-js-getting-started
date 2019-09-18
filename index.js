@@ -60,7 +60,7 @@ function convert(input, output, callback) {
         }).on('error', function(err){
             console.log('error: '+err);
             callback(err);
-        }).save(output);//pipe(audio,{end:false});//run();//.saveToFile(output);*/
+        }).save(output);//pipe(audio,{end:false});//run();*/
     
 }
 const fetchLink = function(mode)
