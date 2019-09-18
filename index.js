@@ -34,6 +34,7 @@ function deleteFiles(callback){
       }
     });
   });
+files = [];
 }
 
 /**
